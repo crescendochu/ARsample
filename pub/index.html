@@ -1,20 +1,69 @@
-<!DOCTYPE html>
-
 <html>
-  <head>
-    <title>Gesture Interactions - A-Frame & AR.js</title>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <link rel="stylesheet" href="styles.css">
-
-    <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
-    <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
-    <script src="gesture-detector.js"></script>
+  <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
+  <!-- we import arjs version without NFT but with marker + location based support -->
+  <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
+   <script src="gesture-detector.js"></script>
     <script src="gesture-handler.js"></script>
-  </head>
+  <script>
+    window.onload = function () {
+      document
+        .querySelector(".show")
+        .addEventListener("click", function () {
+          const aEntity = document.querySelector("#snowman")
+          aEntity.setAttribute('visible', true);
+        console.log("clicked")
+        });
+       document
+        .querySelector(".hide")
+        .addEventListener("click", function () {
+          const aEntity = document.querySelector("#snowman")
+          aEntity.setAttribute('visible', false);
+        console.log("clicked2")
+        });
+    };
+  </script>
+  
 
-  <body>
-    <a-scene
+  <style>
+    .buttons {
+      position: absolute;
+      bottom: 0;
+      left: 30%;
+      width: 40%;
+      height: 5em;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 10;
+    }
+
+    .show {
+      padding: 0.25em;
+      border-radius: 4px;
+      border: none;
+      background: white;
+      color: black;
+      width: 8em;
+      height: 3em;
+    }
+    
+    .hide {
+      padding: 0.25em;
+      border-radius: 4px;
+      border: none;
+      background: white;
+      color: black;
+      width: 8em;
+      height: 3em;
+    }
+
+  </style>
+  <body style="margin : 0px; overflow: hidden;">
+    <div class="buttons">
+      <button class="show">Add a snowman</button>
+      <button class="hide">Nah, I changed my mind</button>
+    </div>
+   <a-scene
       arjs
       embedded
       renderer="logarithmicDepthBuffer: true;"
@@ -39,29 +88,44 @@
       >
 
 
-      <a-entity
-      gltf-model="/models/christmas_tree_decorated/scene.gltf"
+    <a-entity
+      gltf-model="/pub/models/christmas_tree_decorated/scene.gltf"
       position="0 0 0"
       scale="0.3 0.3 0.3"
       class="clickable"
       gesture-handler
     >
+    </a-entity> 
+
+      
+        <a-entity
+      id= "star"
+      geometry="primitive: box" material="color: yellow"
+      position="0 0 0"
+      scale="0.3 0.3 0.3"
+      class="clickable"
+      gesture-handler
+      visible="false"
+    >
     </a-entity>
 
-      <!-- <a-entity geometry="primitive: box" material="color: red" 
-    >
-  -->
-        <!-- <a-entity
-          id="bowser-model"
-          gltf-model="#bowser"
-          position="0 0 0"
-          scale="0.05 0.05 0.05"
-          class="clickable"
-          gesture-handler
-        >
-        </a-entity> -->
+
+    <a-entity
+    id= "snowman"
+    gltf-model="/pub/models/snowman/scene.gltf"
+    position="1 0 0"
+    scale="0.3 0.3 0.3"
+    class="clickable"
+    gesture-handler
+    visible="false"
+  >
+  </a-entity> 
+
+        
       </a-marker>
       <a-entity camera></a-entity>
     </a-scene>
   </body>
 </html>
+
+
